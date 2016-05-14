@@ -1,0 +1,86 @@
+% !TEX encoding = IsoLatin2  % notwendige Zeile f"ur Mac-Benutzer (muss als Kommentar stehen); Windos-Benutzer k"onnen die Zeile l"oschen.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+% Changelog:
+%
+%
+% May 2016, By Jannik Gade (gj9148@mci4me.at)
+% - Introduced subfiles for structured documents
+% - Moved usepackage into style file: "MCI_style.sty" making "definitionen.txt" obsolete
+% - Bold table/figure captions
+% - German comments and files translated into English (Not finished)
+% - Default LaTeX font used throughout document
+% - Added support for figures in pdf
+% Early 2016 By Dr. Andreas Mehrle (andreas.mehrle@mci.edu)
+% - 
+% December 2015, By Dr. Andreas Drauschke und Dr. Susanne Teschl
+% - LaTeX-Vorlage Version 2015
+%
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\documentclass[a4paper,oneside,11pt]{scrreprt}
+% \documentclass[a4paper,bibtotoc,oneside]{scrbook}
+\usepackage{ifthen}
+\newboolean{english}
+\setboolean{english}{true}	% comment out for German version
+
+% Use the MCI document style
+\IfFileExists{MCI_style.sty}{\usepackage{MCI_style}}{\usepackage{../../MCI_style}}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+% Setup title page
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\def\title{Title of the Thesis}
+\def\study{Mechatronics \& Smart Technologies}
+\def\thesis{MASTER THESIS}
+\def\degree{"Master of Science in Engineering"}
+\def\student{Student Name}
+\def\matnr{666}
+\def\address{A-PLZ Ort, Stra{\ss}e Hausnummer}
+\def\reviewerone{Reviewer 1}
+\def\reviewertwo{Reviewer 2}
+
+
+\begin{document}
+
+\ifthenelse{\boolean{english}}{\selectlanguage{english}}{\selectlanguage{ngerman}}
+
+\pagenumbering{Roman}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+% Insert titlepage, preclusion, oath, acknowledgments
+% and abstract
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\subfile{formalities/titlepage.tex}
+%\subfile{formalities/preclusion.tex}
+%\subfile{formalities/oath.tex}
+%\subfile{formalities/acknowledgments.tex}
+%\subfile{formalities/abstract.tex}
+
+\tableofcontents
+\newpage
+
+\setcounter{romancount}{\value{page}}
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+% Initialize header and footer
+\pagestyle{fancy}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+% Insert sections/chapters below
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\subfile{chapters/introduction/introduction.tex}
+
+% Insert bibliography, list of figures,
+% list of tables, list of symbols and abbreviations
+\subfile{formalities/index}
+
+\begin{appendix}
+	\subfile{appendices/appendix_1/appendix_1.tex}
+\end{appendix}
+
+
+\end{document}
